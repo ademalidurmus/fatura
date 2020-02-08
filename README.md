@@ -67,7 +67,7 @@ $ayarlar = [
 ];
 ```
 
-### createInvoiceAndGetDownloadURL()
+### createInvoiceAndGetDownloadURL
 
 Bu metod imzalanmış faturayı oluşturur ve indirme adresi döner.
 
@@ -79,7 +79,7 @@ $service = new Service($ayarlar);
 $fatura_url = $service->createInvoiceAndGetDownloadURL(['invoice_details' => $fatura_detaylari]);
 ```
 
-### createInvoiceAndGetHTML()
+### createInvoiceAndGetHTML
 
 Bu metod imzalanmış faturayı oluşturur ve fatura çıktısını HTML formatta döner. Bu HTML'i `iframe` içerisinde gösterip yazdırılmasını sağlayabilirsiniz.
 
