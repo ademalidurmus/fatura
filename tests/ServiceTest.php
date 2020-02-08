@@ -1,5 +1,6 @@
 <?php namespace AAD\Fatura;
 
+use AAD\Fatura\Exceptions\UnexpectedValueException;
 use PHPUnit\Framework\TestCase;
 
 final class ServiceTest extends TestCase
@@ -39,5 +40,12 @@ final class ServiceTest extends TestCase
         $service = new Service($this->options);
         
         $this->assertNotEquals($service->getUuid(), $service->getUuid());
+    }
+
+    public function testInvalidUuid()
+    {
+        $service = new Service($this->options);
+        $this->expectException(UnexpectedValueException::class);
+        $service->setUuid("invalid-uuid");
     }
 }
