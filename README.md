@@ -102,7 +102,7 @@ eFatura Portal'ını kullanabileceğiniz `token`'ı döner.
 use AAD\Fatura\Service;
 
 $service = new Service($ayarlar);
-$token = $service->getToken()
+$token = $service->getToken();
 ```
 
 ### createDraftInvoice
@@ -113,7 +113,7 @@ eFatura.gov.tr'de fatura direkt oluşmaz. Önce Taslak fatura oluşturmak gereki
 use AAD\Fatura\Service;
 
 $service = new Service($ayarlar);
-$taslak = $service->createDraftInvoice($fatura_detaylari)
+$taslak = $service->createDraftInvoice($fatura_detaylari);
 ```
 
 ### findDraftInvoice
@@ -124,7 +124,7 @@ Taslak olarak oluşturulan her fatura içerisinde `uuid` ve `date` bilgisi yer a
 use AAD\Fatura\Service;
 
 $service = new Service($ayarlar);
-$bulunan_taslak = $service->findDraftInvoice(['date' => 'Taslak durumdaki faturanın tarihi', 'uuid' => 'Taslak durumdaki faturanın uuid bilgisi'])
+$bulunan_taslak = $service->findDraftInvoice(['date' => 'Taslak durumdaki faturanın tarihi', 'uuid' => 'Taslak durumdaki faturanın uuid bilgisi']);
 ```
 
 > Belirtilen `uuid` ve `date` bilgisi ile eşleşen kayıt sonucu aşağıdaki şekilde dönmektedir.
@@ -154,8 +154,8 @@ Array
 use AAD\Fatura\Service;
 
 $service = new Service($ayarlar);
-$bulunan_taslak = $service->findDraftInvoice(['date' => 'Fatura tarihi', 'uuid' => 'Fatura uuid'])
-$imzalanmis_fatura = $service->signDraftInvoice($bulunan_taslak)
+$bulunan_taslak = $service->findDraftInvoice(['date' => 'Fatura tarihi', 'uuid' => 'Fatura uuid']);
+$imzalanmis_fatura = $service->signDraftInvoice($bulunan_taslak);
 ```
 
 > İmzalama işleminin başarılı olması durumunda aşağıdaki şekilde yanıt dönmektedir.
@@ -180,7 +180,7 @@ Array
 use AAD\Fatura\Service;
 
 $service = new Service($ayarlar);
-$fatura_url = $service->getDownloadURL('uuid' => 'Fatura uuid')
+$fatura_url = $service->getDownloadURL('Fatura uuid');
 ```
 
 Henüz imzalanmamış bir faturanın indirme bağlantısına erişmek için `getDownloadURL` metodunun ikinci parametresine `false` değerini gönderebilirsiniz.
@@ -189,7 +189,7 @@ Henüz imzalanmamış bir faturanın indirme bağlantısına erişmek için `get
 use AAD\Fatura\Service;
 
 $service = new Service($ayarlar);
-$fatura_url = $service->getDownloadURL('uuid' => 'Fatura uuid', false)
+$fatura_url = $service->getDownloadURL('Fatura uuid', false);
 ```
 
 ## getInvoiceHTML
@@ -200,7 +200,7 @@ $fatura_url = $service->getDownloadURL('uuid' => 'Fatura uuid', false)
 use AAD\Fatura\Service;
 
 $service = new Service($ayarlar);
-$fatura_html = $service->getInvoiceHTML('uuid' => 'Fatura uuid')
+$fatura_html = $service->getInvoiceHTML('Fatura uuid');
 ```
 
 Henüz imzalanmamış bir faturanın HTML çıktısını oluşturmak için `getInvoiceHTML` metodunun ikinci parametresine `false` değerini gönderebilirsiniz.
@@ -209,7 +209,18 @@ Henüz imzalanmamış bir faturanın HTML çıktısını oluşturmak için `getI
 use AAD\Fatura\Service;
 
 $service = new Service($ayarlar);
-$fatura_html = $service->getInvoiceHTML('uuid' => 'Fatura uuid', false)
+$fatura_html = $service->getInvoiceHTML('Fatura uuid', false);
+```
+
+## cancelDraftInvoice
+
+Taslak durumdaki faturanın iptalini bu metod ile gerçekleştirebilirsiniz.
+
+```php
+use AAD\Fatura\Service;
+
+$service = new Service($ayarlar);
+$fatura_html = $service->getInvoiceHTML('İptal sebebi', $bulunan_taslak);
 ```
 
 > Kullanım örneklerine examples/index.php dosyasından da erişebilirsiniz.

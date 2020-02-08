@@ -42,7 +42,11 @@ class Service
         "get_invoice_html" => [
             "EARSIV_PORTAL_FATURA_GOSTER",
             "RG_BASITTASLAKLAR"
-        ]
+        ],
+        "cancel_draft_invoice" => [
+            "EARSIV_PORTAL_FATURA_SIL",
+            "RG_BASITTASLAKLAR"
+        ],
     ];
 
     public function __construct(array $config = [])
@@ -284,5 +288,19 @@ class Service
     {
         $invoice = $this->createInvoice($args['invoice_details'], $args['sign'] ?? true);
         return $this->getInvoiceHTML($invoice['uuid'], $invoice['signed']);
+    }
+
+    public function cancelDraftInvoice($reason, $draft_invoice)
+    {
+        $cancel = $this->runCommand(
+            self::COMMANDS['cancel_draft_invoice'][0],
+            self::COMMANDS['cancel_draft_invoice'][1],
+            [
+                'silinecekler' => [$draft_invoice],
+                'aciklama' => $reason
+            ]
+        );
+        
+        return $cancel['data'];
     }
 }
