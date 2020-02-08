@@ -1,0 +1,5 @@
+{
+    "phpcs.standard": ".vscode/PHPCS-MyRules.xml",
+    "files.eol": "\n",
+    "editor.tabSize": 4
+}
