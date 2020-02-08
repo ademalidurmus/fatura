@@ -13,7 +13,13 @@ eFatura sistemi üzerinde fatura oluşturmanızı sağlar.
 > [https://earsivportal.efatura.gov.tr/intragiris.html](https://earsivportal.efatura.gov.tr/intragiris.html) adresindeki parola ekranında kullanılan kullanıcı kodu ve parola ile bu paketi kullanabilirsiniz.
 > ℹ️ Bu **kullanıcı kodu ve parola bilgilerini** muhasebecinizden ya da **GİB - İnteraktif Vergi Dairesi**'nden edinebilirsiniz.
 
-----
+---
+
+## Kurulum
+```
+composer require aad/fatura
+```
+---
 
 ## Kullanım
 
@@ -84,7 +90,7 @@ $service = new Service($ayarlar);
 $fatura_html = $service->createInvoiceAndGetHTML(['invoice_details' => $fatura_detaylari]);
 ```
 
-----
+---
 
 ## Diğer Kullanım Örnekleri
 
@@ -208,7 +214,7 @@ $fatura_html = $service->getInvoiceHTML('uuid' => 'Fatura uuid', false)
 
 > Kullanım örneklerine examples/index.php dosyasından da erişebilirsiniz.
 
-----
+---
 
 ## Lisans
 MIT
