@@ -223,6 +223,17 @@ $service = new Service($ayarlar);
 $fatura_html = $service->getInvoiceHTML('İptal sebebi', $bulunan_taslak);
 ```
 
+## setUuid
+
+Fatura işlemlerinde özelleştirilmiş `uuid` tanılamak için bu metodu kullanabilirsiniz.
+
+```php
+use AAD\Fatura\Service;
+
+$service = new Service($ayarlar);
+$service->setUuid('590e1a3e-4aaf-11ea-b085-8434976ef848');
+```
+
 > Kullanım örneklerine examples/index.php dosyasından da erişebilirsiniz.
 
 ---

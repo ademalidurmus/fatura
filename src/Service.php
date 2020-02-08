@@ -1,5 +1,6 @@
 <?php namespace AAD\Fatura;
 
+use AAD\Fatura\Exceptions\UnexpectedValueException;
 use NumberToWords\NumberToWords;
 use Rhumsaa\Uuid\Uuid;
 
@@ -49,6 +50,8 @@ class Service
         ],
     ];
 
+    private $uuid;
+
     public function __construct(array $config = [])
     {
         $this->config = array_merge($this->config, $config);
@@ -57,12 +60,30 @@ class Service
 
     public function setConfig($key, $val)
     {
-        return $this->config[$key] = $val;
+        $this->config[$key] = $val;
+        return $this->config[$key];
     }
 
     public function getConfig($key)
     {
         return isset($this->config[$key]) ? $this->config[$key] : null;
+    }
+
+    public function setUuid($uuid)
+    {
+        if (!Uuid::isValid($uuid)) {
+            throw new UnexpectedValueException("Belirttiğiniz uuid geçerli değil.");
+        }
+        $this->uuid = $uuid;
+        return $uuid;
+    }
+
+    public function getUuid()
+    {
+        if (!isset($this->uuid)) {
+            return Uuid::uuid1()->toString();
+        }
+        return $this->uuid;
     }
 
     public function currencyTransformerToWords($amount)
@@ -109,7 +130,7 @@ class Service
         curl_setopt($ch, CURLOPT_HTTPHEADER, $this->curl_http_headers);
         curl_setopt($ch, CURLOPT_REFERER, "{$this->config['base_url']}/login.jsp");
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query([
-            "callid" => Uuid::uuid1()->toString(),
+            "callid" => $this->getUuid(),
             "token" => $this->config['token'],
             "cmd" => $command,
             "pageName" => $page_name,
@@ -125,7 +146,7 @@ class Service
     public function createDraftInvoice($invoice_details = [])
     {
         $invoice_data = [
-            "faturaUuid" => Uuid::uuid1()->toString(),
+            "faturaUuid" => $this->getUuid(),
             "belgeNumarasi" => "",
             "faturaTarihi" => $invoice_details['date'],
             "saat" => $invoice_details['time'],
