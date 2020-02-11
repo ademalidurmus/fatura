@@ -234,6 +234,18 @@ $service = new Service($ayarlar);
 $service->setUuid('590e1a3e-4aaf-11ea-b085-8434976ef848');
 ```
 
+## getAllInvoicesByDateRange
+
+Belirttiğiniz tarih aralığına göre taslak durumdaki faturaları listelemek için bu metodu kullanabilirsiniz.
+```php
+use AAD\Fatura\Service;
+
+$baslangic_tarihi = "08/02/2020";
+$bitis_tarihi = "11/02/2020";
+
+$service = new Service($ayarlar);
+$taslak_faturalar = $service->getAllInvoicesByDateRange($baslangic_tarihi, $bitis_tarihi);
+```
 > Kullanım örneklerine examples/index.php dosyasından da erişebilirsiniz.
 
 ---

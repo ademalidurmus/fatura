@@ -28,26 +28,16 @@ class Service
     ];
 
     const COMMANDS = [
-        "create_draft_invoice" => [
-            "EARSIV_PORTAL_FATURA_OLUSTUR",
-            "RG_BASITFATURA"
-        ],
-        "find_draft_invoice" => [
-            "EARSIV_PORTAL_TASLAKLARI_GETIR",
-            "RG_BASITTASLAKLAR"
-        ],
-        "sign_draft_invoice" => [
-            "EARSIV_PORTAL_FATURA_HSM_CIHAZI_ILE_IMZALA",
-            "RG_BASITTASLAKLAR"
-        ],
-        "get_invoice_html" => [
-            "EARSIV_PORTAL_FATURA_GOSTER",
-            "RG_BASITTASLAKLAR"
-        ],
-        "cancel_draft_invoice" => [
-            "EARSIV_PORTAL_FATURA_SIL",
-            "RG_BASITTASLAKLAR"
-        ],
+        "create_draft_invoice"                  => ["EARSIV_PORTAL_FATURA_OLUSTUR","RG_BASITFATURA"],
+        "get_all_invoices_by_date_range"        => ["EARSIV_PORTAL_TASLAKLARI_GETIR", "RG_BASITTASLAKLAR"],
+        "sign_draft_invoice"                    => ["EARSIV_PORTAL_FATURA_HSM_CIHAZI_ILE_IMZALA", "RG_BASITTASLAKLAR"],
+        "get_invoice_html"                      => ["EARSIV_PORTAL_FATURA_GOSTER", "RG_BASITTASLAKLAR"],
+        "cancel_draft_invoice"                  => ["EARSIV_PORTAL_FATURA_SIL", "RG_BASITTASLAKLAR"],
+        "get_recipient_data_by_tax_id_or_tr_id" => ["SICIL_VEYA_MERNISTEN_BILGILERI_GETIR", "RG_BASITFATURA"],
+        "send_sign_sms_code"                    => ["EARSIV_PORTAL_SMSSIFRE_GONDER", "RG_SMSONAY"],
+        "verify_sms_code"                       => ["EARSIV_PORTAL_SMSSIFRE_DOGRULA", "RG_SMSONAY"],
+        "get_user_data"                         => ["EARSIV_PORTAL_KULLANICI_BILGILERI_GETIR", "RG_KULLANICI"],
+        "update_user_data"                      => ["EARSIV_PORTAL_KULLANICI_BILGILERI_KAYDET", "RG_KULLANICI"]
     ];
 
     private $uuid;
@@ -228,11 +218,25 @@ class Service
         ], $invoice);
     }
 
+    public function getAllInvoicesByDateRange($start_date, $end_date)
+    {
+        $invoices = $this->runCommand(
+            self::COMMANDS['get_all_invoices_by_date_range'][0],
+            self::COMMANDS['get_all_invoices_by_date_range'][1],
+            [
+                "baslangic" => $start_date,
+                "bitis" => $end_date,
+                "table" => []
+            ]
+        );
+        return $invoices['data'];
+    }
+
     public function findDraftInvoice($draft_invoice)
     {
         $drafts = $this->runCommand(
-            self::COMMANDS['find_draft_invoice'][0],
-            self::COMMANDS['find_draft_invoice'][1],
+            self::COMMANDS['get_all_invoices_by_date_range'][0],
+            self::COMMANDS['get_all_invoices_by_date_range'][1],
             [
                 "baslangic" => $draft_invoice['date'],
                 "bitis" => $draft_invoice['date'],

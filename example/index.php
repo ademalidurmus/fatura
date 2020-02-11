@@ -44,6 +44,10 @@ echo "Olusturulmus olan taslak faturanin detaylarinin tekrar okunmasi:\n";
 $founded_draft = $service->findDraftInvoice($created_draft);
 print_r($founded_draft);
 
+echo "Belirli bir tarih araligindaki fatura taslaklarinin listelenmesi:\n";
+$founded_drafts = $service->getAllInvoicesByDateRange("08/02/2020", "11/02/2020");
+print_r($founded_drafts);
+
 echo "Imzalanmis fatura detaylari:\n";
 $signed_invoice = $service->signDraftInvoice($founded_draft);
 print_r($signed_invoice);
