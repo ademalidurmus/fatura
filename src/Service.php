@@ -328,4 +328,17 @@ class Service
         
         return $cancel['data'];
     }
+
+    public function getRecipientDataByTaxIDOrTRID($tax_id_or_tr_id)
+    {
+        $recipient = $this->runCommand(
+            self::COMMANDS['get_recipient_data_by_tax_id_or_tr_id'][0],
+            self::COMMANDS['get_recipient_data_by_tax_id_or_tr_id'][1],
+            [
+                'vknTcknn' => $tax_id_or_tr_id
+            ]
+        );
+
+        return $recipient['data'];
+    }
 }

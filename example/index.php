@@ -77,7 +77,11 @@ echo "Taslak durumdaki faturanın iptali:\n";
 $cancel = $service->cancelDraftInvoice("Test fatura iptali", $founded_draft);
 print_r($cancel);
 
-echo "Özel uuid ile fatura oluşturma:\n";
+echo "Ozel uuid ile fatura olusturma:\n";
 $service->setUuid("590e1a3e-4aaf-11ea-b085-8434976ef849");
 $created_draft = $service->createDraftInvoice($invoice_details);
 print_r($created_draft);
+
+echo "TCKN veya vergi numarasi araciligi ile unvan, ad, soyad ve vergi dairesi bilgilerini ogrenmek icin:\n";
+$recipient = $service->getRecipientDataByTaxIDOrTRID("");
+print_r($recipient);

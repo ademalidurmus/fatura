@@ -237,6 +237,7 @@ $service->setUuid('590e1a3e-4aaf-11ea-b085-8434976ef848');
 ## getAllInvoicesByDateRange
 
 Belirttiğiniz tarih aralığına göre taslak durumdaki faturaları listelemek için bu metodu kullanabilirsiniz.
+
 ```php
 use AAD\Fatura\Service;
 
@@ -246,6 +247,20 @@ $bitis_tarihi = "11/02/2020";
 $service = new Service($ayarlar);
 $taslak_faturalar = $service->getAllInvoicesByDateRange($baslangic_tarihi, $bitis_tarihi);
 ```
+
+## getRecipientDataByTaxIDOrTRID
+
+T.C. kimlik numarası veya vergi numarası ile ünvan, ad, soyad ve vergi dairesi bilgilerini öğrenmek için aşağıdaki metodu kullanabilirsiniz.
+
+```php
+use AAD\Fatura\Service;
+
+$tckn_veya_vkn = "";
+
+$service = new Service($ayarlar);
+$bilgiler = $service->getRecipientDataByTaxIDOrTRID($tckn_veya_vkn);
+```
+
 > Kullanım örneklerine examples/index.php dosyasından da erişebilirsiniz.
 
 ---
