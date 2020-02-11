@@ -341,4 +341,33 @@ class Service
 
         return $recipient['data'];
     }
+
+    public function sendSignSMSCode($phone)
+    {
+        $sms = $this->runCommand(
+            self::COMMANDS['send_sign_sms_code'][0],
+            self::COMMANDS['send_sign_sms_code'][1],
+            [
+                "CEPTEL" => $phone,
+                "KCEPTEL" => false,
+                "TIP" => ""
+            ]
+        );
+
+        return $sms['oid'];
+    }
+
+    public function verifySignSMSCode($sms_code, $operation_id)
+    {
+        $sms = $this->runCommand(
+            self::COMMANDS['verify_sms_code'][0],
+            self::COMMANDS['verify_sms_code'][1],
+            [
+                "SIFRE" => $sms_code,
+                "OID" => $operation_id
+            ]
+        );
+
+        return $sms['oid'];
+    }
 }

@@ -261,6 +261,33 @@ $service = new Service($ayarlar);
 $bilgiler = $service->getRecipientDataByTaxIDOrTRID($tckn_veya_vkn);
 ```
 
+## sendSignSMSCode / verifySignSMSCode
+
+SMS dogrulama işlemini başlatmak için aşağıdaki metodu kullanabilirsiniz.
+
+> Bu işlemin sonucunda dönecek olan `oid` bilgisi doğrulama adımında kullanılacaktır.
+
+```php
+use AAD\Fatura\Service;
+
+$telefon_numarasi = ""; // SMS doğrulama işleminin yapılacağı telefon numarası
+
+$service = new Service($ayarlar);
+$sms = $service->sendSignSMSCode($telefon_numarasi);
+```
+
+SMS dogrulama işlemini başlatmak için aşağıdaki metodu kullanabilirsiniz.
+
+```php
+use AAD\Fatura\Service;
+
+$dogrulama_kodu = ""; // Belirttiğiniz numaraya sms olarak gönderilmiş olan kod
+$takip_numarasi = ""; // sendSignSMSCode metodu araciligi ile baslatmis oldugunuz islem sonucunda donen `oid` bilgisi
+
+$service = new Service($ayarlar);
+$sms = $service->verifySignSMSCode($telefon_numarasi, $takip_numarasi);
+```
+
 > Kullanım örneklerine examples/index.php dosyasından da erişebilirsiniz.
 
 ---

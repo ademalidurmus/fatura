@@ -82,6 +82,14 @@ $service->setUuid("590e1a3e-4aaf-11ea-b085-8434976ef849");
 $created_draft = $service->createDraftInvoice($invoice_details);
 print_r($created_draft);
 
-echo "TCKN veya vergi numarasi araciligi ile unvan, ad, soyad ve vergi dairesi bilgilerini ogrenmek icin:\n";
-$recipient = $service->getRecipientDataByTaxIDOrTRID("");
+echo "T.C. kimlik numarasi veya vergi numarasi araciligi ile unvan, ad, soyad ve vergi dairesi bilgilerini ogrenmek icin:\n";
+$recipient = $service->getRecipientDataByTaxIDOrTRID("T.C. kimlik numarasi veya vergi numarasini bu alana yaziniz");
 print_r($recipient);
+
+echo "SMS dogrulama islemini baslatma:\n";
+$sms = $service->sendSignSMSCode("Telefon numarasini bu alana yaziniz");
+print_r($sms);
+
+echo "SMS dogrulama islemini tamamlama:\n";
+$sms = $service->verifySignSMSCode("SMS dogrulama kodu", "sendSignSMSCode isleminden donen oid bilgisi");
+print_r($sms);
