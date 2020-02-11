@@ -288,6 +288,29 @@ $service = new Service($ayarlar);
 $sms = $service->verifySignSMSCode($telefon_numarasi, $takip_numarasi);
 ```
 
+## getUserData
+
+Firma bilgilerini getirmek için aşağıdaki metodu kullanabilirsiniz.
+
+```php
+use AAD\Fatura\Service;
+
+$service = new Service($ayarlar);
+$firma_bilgileri = $service->getUserData();
+```
+
+## updateUserData
+
+Firma bilgilerini güncellemek için aşağıdaki metodu kullanabilirsiniz.
+
+> `$firma_bilgileri` array i içerisinde getUserData metodundan dönen bilgiler yer almalıdır. Güncellemek istediğiniz bilgiyi array içerisinden değiştirek updateUserData metoduna parametre olarak verebilirsiniz.
+
+```php
+use AAD\Fatura\Service;
+
+$service = new Service($ayarlar);
+$sonuc = $service->updateUserData($firma_bilgileri);
+```
 > Kullanım örneklerine examples/index.php dosyasından da erişebilirsiniz.
 
 ---

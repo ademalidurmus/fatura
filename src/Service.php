@@ -112,7 +112,7 @@ class Service
         return $response['token'];
     }
 
-    public function runCommand($command, $page_name, $data, $url_encode = false)
+    public function runCommand($command, $page_name, $data = null, $url_encode = false)
     {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, "{$this->config['base_url']}/earsiv-services/dispatch");
@@ -369,5 +369,84 @@ class Service
         );
 
         return $sms['oid'];
+    }
+
+    public function getUserData()
+    {
+        $user = $this->runCommand(
+            self::COMMANDS['get_user_data'][0],
+            self::COMMANDS['get_user_data'][1],
+            new \stdClass()
+        );
+
+        return [
+            "taxIDOrTRID" => $user['data']['vknTckn'],
+            "title" => $user['data']['unvan'],
+            "name" => $user['data']['ad'],
+            "surname" => $user['data']['soyad'],
+            "registryNo" => $user['data']['sicilNo'],
+            "mersisNo" => $user['data']['mersisNo'],
+            "taxOffice" => $user['data']['vergiDairesi'],
+            "fullAddress" => $user['data']['cadde'],
+            "buildingName" => $user['data']['apartmanAdi'],
+            "buildingNumber" => $user['data']['apartmanNo'],
+            "doorNumber" => $user['data']['kapiNo'],
+            "town" => $user['data']['kasaba'],
+            "district" => $user['data']['ilce'],
+            "city" => $user['data']['il'],
+            "zipCode" => $user['data']['postaKodu'],
+            "country" => $user['data']['ulke'],
+            "phoneNumber" => $user['data']['telNo'],
+            "faxNumber" => $user['data']['faksNo'],
+            "email" => $user['data']['ePostaAdresi'],
+            "webSite" => $user['data']['webSitesiAdresi'],
+            "businessCenter" => $user['data']['isMerkezi']
+        ];
+    }
+
+    public function updateUserData(array $user_data)
+    {
+        $fields = [
+            "taxIDOrTRID" => 'vknTckn',
+            "title" => 'unvan',
+            "name" => 'ad',
+            "surname" => 'soyad',
+            "registryNo" => 'sicilNo',
+            "mersisNo" => 'mersisNo',
+            "taxOffice" => 'vergiDairesi',
+            "fullAddress" => 'cadde',
+            "buildingName" => 'apartmanAdi',
+            "buildingNumber" => 'apartmanNo',
+            "doorNumber" => 'kapiNo',
+            "town" => 'kasaba',
+            "district" => 'ilce',
+            "city" => 'il',
+            "zipCode" => 'postaKodu',
+            "country" => 'ulke',
+            "phoneNumber" => 'telNo',
+            "faxNumber" => 'faksNo',
+            "email" => 'ePostaAdresi',
+            "webSite" => 'webSitesiAdresi',
+            "businessCenter" => 'isMerkezi',
+        ];
+
+        $update_data = [];
+        foreach ($fields as $source => $target) {
+            if (isset($user_data[$source])) {
+                $update_data[$target] = $user_data[$source];
+            }
+        }
+
+        if (count($update_data) < 1) {
+            return;
+        }
+        
+        $user = $this->runCommand(
+            self::COMMANDS['update_user_data'][0],
+            self::COMMANDS['update_user_data'][1],
+            $update_data
+        );
+
+        return $user['data'];
     }
 }

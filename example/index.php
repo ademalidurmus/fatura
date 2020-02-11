@@ -93,3 +93,12 @@ print_r($sms);
 echo "SMS dogrulama islemini tamamlama:\n";
 $sms = $service->verifySignSMSCode("SMS dogrulama kodu", "sendSignSMSCode isleminden donen oid bilgisi");
 print_r($sms);
+
+echo "Firma bilgilerini getirme:\n";
+$user_data = $service->getUserData();
+print_r($user_data);
+
+echo "Firma bilgilerini guncelleme:\n";
+$user_data['email'] = "ornekguncelleme@gib.gov.tr";
+$user_data = $service->updateUserData($user_data);
+print_r($user_data);
