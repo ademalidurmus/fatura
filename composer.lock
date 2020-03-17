@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "246146f876b69f59e2fbb0a609ca1af6",
+    "content-hash": "7e760dfe12bfbac5cd51d3d4b8bb15ae",
     "packages": [
         {
             "name": "kwn/number-to-words",
@@ -1812,7 +1812,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.2"
+        "php": "^7.3"
     },
     "platform-dev": []
 }
