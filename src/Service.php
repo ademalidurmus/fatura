@@ -2,7 +2,7 @@
 
 use AAD\Fatura\Exceptions\UnexpectedValueException;
 use NumberToWords\NumberToWords;
-use Rhumsaa\Uuid\Uuid;
+use Ramsey\Uuid\Uuid;
 
 class Service
 {
